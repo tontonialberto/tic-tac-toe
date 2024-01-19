@@ -1,0 +1,29 @@
+Il gioco consiste nel posizionare, a turno, simboli in una griglia 3x3.
+All'inizio del gioco, ad ogni giocatore viene assegnato un simbolo.
+Ad ogni turno, un giocatore sceglie una posizione nella griglia non ancora occupata e vi posiziona il suo simbolo.
+Il gioco finisce quando ci sono tre forme uguali nella stessa verticale, orizzontale o diagonale.
+
+Ci interessa realizzare inizialmente una versione a due giocatori e, nel caso, anche una versione contro il computer.
+
+L'interfaccia del gioco è a linea di comando.
+Ad ogni turno viene mostrata la griglia di gioco e al giocatore di turno viene richiesto di inserire le coordinate in termini di righe e colonne per l'inserimento del suo simbolo.
+Alla fine del gioco, viene mostrato il nome del giocatore che ha vinto.
+
+Player
+MovePrompt
+- prompt: returns position inside the grid
+GameStatusPresenter
+- show: displays the game status
+TicTacToe
+- iterate: perform a game loop iteration
+- makeMove: input=position inside the grid, player whose turn is the current one.
+- hasEnded: returns whether the game has ended.
+- isDraw: returns whether the game has ended in a draw.
+- getWinner: returns the winner player, or an exception if game has not ended yet. 
+Grid
+- setCell
+- isEmpty
+- getCell
+
+initGame
+displayGameState
