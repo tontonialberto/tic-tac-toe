@@ -1,4 +1,4 @@
-from domain.GameStatusPresenter import GameStatusPresenter
+from tictactoe.domain.GameStatusPresenter import GameStatusPresenter
 
 class ConsoleGameStatusPresenter(GameStatusPresenter):
     def show(self) -> None:

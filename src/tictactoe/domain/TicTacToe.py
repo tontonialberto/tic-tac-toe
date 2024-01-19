@@ -1,6 +1,6 @@
-from .MovePrompt import MovePrompt
-from .Grid import Grid
-from .GameStatusPresenter import GameStatusPresenter
+from tictactoe.domain.MovePrompt import MovePrompt
+from tictactoe.domain.Grid import Grid
+from tictactoe.domain.GameStatusPresenter import GameStatusPresenter
 
 class TicTacToe:
     def __init__(self, grid: Grid, move_prompt: MovePrompt, status_presenter: GameStatusPresenter):

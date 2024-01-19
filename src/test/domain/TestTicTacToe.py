@@ -1,11 +1,11 @@
-from src.domain.MovePrompt import MovePrompt
-from src.domain.TicTacToe import TicTacToe
-from src.domain.Grid import Grid
-from src.domain.GameStatusPresenter import GameStatusPresenter
+from tictactoe.domain.MovePrompt import MovePrompt
+from tictactoe.domain.TicTacToe import TicTacToe
+from tictactoe.domain.Grid import Grid
+from tictactoe.domain.GameStatusPresenter import GameStatusPresenter
 from unittest.mock import Mock
-import unittest
+from unittest import TestCase
 
-class TicTacToeTest(unittest.TestCase):
+class TicTacToeTest(TestCase):
     
     def test_should_prompt_for_move_and_update_grid_and_display_status_when_iterating(self):
         move_prompt = Mock(spec=MovePrompt)
