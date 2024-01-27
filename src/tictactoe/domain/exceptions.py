@@ -3,3 +3,6 @@ class GameException(Exception):
 
 class InvalidMove(GameException):
     pass
+
+class InvalidCellPosition(GameException):
+    pass
