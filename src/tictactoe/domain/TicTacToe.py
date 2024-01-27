@@ -11,7 +11,7 @@ class TicTacToe:
         
     def iterate(self):
         row, column = self.__get_move()
-        self.__grid.set_square(row, column)
+        self.__grid.set_cell(row, column)
         self.__status_presenter.show()
         
     def __get_move(self) -> Move:

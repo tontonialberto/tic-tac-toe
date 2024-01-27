@@ -18,7 +18,7 @@ class TicTacToeTest(TestCase):
         game.iterate()
         
         move_prompt.prompt.assert_called_once()
-        grid.set_square.assert_called_once_with(0, 0)
+        grid.set_cell.assert_called_once_with(0, 0)
         presenter.show.assert_called_once()
         
     def test_should_ask_again_for_move_if_invalid_input(self):
