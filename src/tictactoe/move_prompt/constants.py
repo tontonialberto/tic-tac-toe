@@ -1,0 +1,2 @@
+MSG_MOVE_PROMPT_ROW = "Row: "
+MSG_MOVE_PROMPT_COLUMN = "Column: "

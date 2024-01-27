@@ -5,7 +5,7 @@ from tictactoe.move_prompt.ConsoleMovePrompt import ConsoleMovePrompt
 
 def main():
     grid = Grid()
-    move_prompt = ConsoleMovePrompt(output_stream=print)
+    move_prompt = ConsoleMovePrompt(input_stream=input, output_stream=print)
     status_presenter = ConsoleGameStatusPresenter()
     tic_tac_toe = TicTacToe(grid=grid,move_prompt=move_prompt, status_presenter=status_presenter)
     tic_tac_toe.iterate()
