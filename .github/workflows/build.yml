@@ -33,7 +33,7 @@ jobs:
           source: coverage.json
           output: coverage/badges.svg
           jsonPath: totals.percent_covered
-      - name: Deploy
+      - name: Deploy Coverage Badge to GH Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
