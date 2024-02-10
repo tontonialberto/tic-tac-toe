@@ -17,13 +17,17 @@ class TicTacToe:
         self.__move_prompt = move_prompt
         self.__status_presenter = status_presenter
         self.__player_turn = initial_turn
+        self.__has_never_iterated_yet = True
 
     def iterate(self):
+        if self.__has_never_iterated_yet:
+            self.__status_presenter.show_welcome_message()
         row, column = self.__get_move()
         cell_symbol = self.__get_cell_symbol_by_player(self.__player_turn)
         self.__grid.set_cell(row, column, cell_symbol)
         self.__status_presenter.show()
         self.__next_player_turn()
+        self.__has_never_iterated_yet = False
 
     def get_player_turn(self) -> Turn:
         return self.__player_turn

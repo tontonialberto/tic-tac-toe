@@ -1,12 +1,16 @@
 from typing import Callable
 from tictactoe.domain.GameStatusPresenter import GameStatusPresenter
 from tictactoe.domain.Grid import CellSymbol, Grid
+from tictactoe.game_status_presenter.constants import MSG_STATUS_PRESENTER_WELCOME
 
 
 class ConsoleGameStatusPresenter(GameStatusPresenter):
     def __init__(self, grid: Grid, output_stream: Callable[[str], None]) -> None:
         self.__grid = grid
         self.__write = output_stream
+
+    def show_welcome_message(self) -> None:
+        self.__write(MSG_STATUS_PRESENTER_WELCOME)
 
     def show(self) -> None:
 

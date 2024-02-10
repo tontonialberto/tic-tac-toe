@@ -8,6 +8,7 @@ from tictactoe.domain.Grid import CellSymbol, Grid
 from tictactoe.game_status_presenter.ConsoleGameStatusPresenter import (
     ConsoleGameStatusPresenter,
 )
+from tictactoe.game_status_presenter.constants import MSG_STATUS_PRESENTER_WELCOME
 
 
 class TestGameStatusPresenter(TestCase):
@@ -65,7 +66,7 @@ class TestGameStatusPresenter(TestCase):
             ),
         ]
     )
-    def test_show_empty_grid(self, cells: Iterable[CellSymbol], expected_output: str):
+    def test_show_grid(self, cells: Iterable[CellSymbol], expected_output: str):
         grid = Mock(spec=Grid)
         grid.get_cell.side_effect = cells
         grid.get_size.return_value = GRID_SIZE
@@ -75,3 +76,12 @@ class TestGameStatusPresenter(TestCase):
         presenter.show()
 
         output_stream.assert_has_calls([call(c) for c in expected_output])
+
+    def test_show_welcome_message(self):
+        grid = Mock(spec=Grid)
+        output_stream = Mock()
+        presenter = ConsoleGameStatusPresenter(grid=grid, output_stream=output_stream)
+
+        presenter.show_welcome_message()
+
+        output_stream.assert_called_once_with(MSG_STATUS_PRESENTER_WELCOME)

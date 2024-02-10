@@ -13,6 +13,24 @@ from parameterized import parameterized  # type: ignore
 
 class TicTacToeTest(TestCase):
 
+    def test_show_welcome_message_at_first_iteration(self):
+        grid = Mock(spec=Grid)
+        grid.get_cell.side_effect = [CellSymbol.Empty, CellSymbol.Empty]
+        move_prompt = Mock(spec=MovePrompt)
+        move_prompt.prompt.return_value = [(ANY, ANY), (ANY, ANY)]
+        presenter = Mock(spec=GameStatusPresenter)
+
+        game = TicTacToe(
+            move_prompt=move_prompt,
+            grid=grid,
+            status_presenter=presenter,
+            initial_turn=Turn.PlayerOne,
+        )
+        game.iterate()
+        game.iterate()
+
+        presenter.show_welcome_message.assert_called_once()
+
     def test_should_prompt_for_move_and_update_grid_and_display_status_when_iterating(
         self,
     ):
