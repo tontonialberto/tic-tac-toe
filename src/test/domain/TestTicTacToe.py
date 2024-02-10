@@ -98,7 +98,7 @@ class TicTacToeTest(TestCase):
         grid.set_cell.assert_called_once_with(ANY, ANY, expected_cell_symbol)
 
     # fmt: off
-    @parameterized.expand([ # type: ignore
+    @parameterized.expand([  # type: ignore
         (
             GRID_SIZE,
             False,

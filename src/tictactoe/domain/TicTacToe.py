@@ -31,22 +31,35 @@ class TicTacToe:
     def has_ended(self) -> bool:
         has_ended = False
         grid_size = self.__grid.get_size()
+        consecutive_p1_cells = 0
+        consecutive_p2_cells = 0
+
+        def update_player_cell_count(row: int, column: int) -> None:
+            nonlocal consecutive_p1_cells
+            nonlocal consecutive_p2_cells
+            cell_symbol = self.__grid.get_cell(row, column)
+            if cell_symbol != CellSymbol.Empty:
+                player = self.__get_player_by_cell_symbol(cell_symbol)
+                if player == Turn.PlayerOne:
+                    consecutive_p1_cells += 1
+                elif player == Turn.PlayerTwo:
+                    consecutive_p2_cells += 1
+
+        def is_there_a_winner():
+            nonlocal consecutive_p1_cells
+            nonlocal consecutive_p2_cells
+            grid_size = self.__grid.get_size()
+            return (consecutive_p1_cells == grid_size) or (
+                consecutive_p2_cells == grid_size
+            )
 
         if not has_ended:
             # main diagonal
             consecutive_p1_cells = 0
             consecutive_p2_cells = 0
             for i in range(grid_size):
-                cell_symbol = self.__grid.get_cell(i, i)
-                if cell_symbol != CellSymbol.Empty:
-                    player = self.__get_player_by_cell_symbol(cell_symbol)
-                    if player == Turn.PlayerOne:
-                        consecutive_p1_cells += 1
-                    elif player == Turn.PlayerTwo:
-                        consecutive_p2_cells += 1
-            if (consecutive_p1_cells == grid_size) or (
-                consecutive_p2_cells == grid_size
-            ):
+                update_player_cell_count(i, i)
+            if is_there_a_winner():
                 has_ended = True
 
         if not has_ended:
@@ -55,16 +68,8 @@ class TicTacToe:
             consecutive_p2_cells = 0
             for i in range(grid_size):
                 j = grid_size - i - 1
-                cell_symbol = self.__grid.get_cell(i, j)
-                if cell_symbol != CellSymbol.Empty:
-                    player = self.__get_player_by_cell_symbol(cell_symbol)
-                    if player == Turn.PlayerOne:
-                        consecutive_p1_cells += 1
-                    elif player == Turn.PlayerTwo:
-                        consecutive_p2_cells += 1
-            if (consecutive_p1_cells == grid_size) or (
-                consecutive_p2_cells == grid_size
-            ):
+                update_player_cell_count(i, j)
+            if is_there_a_winner():
                 has_ended = True
 
         if not has_ended:
@@ -75,16 +80,8 @@ class TicTacToe:
                 consecutive_p1_cells = 0
                 consecutive_p2_cells = 0
                 for j in range(grid_size):
-                    cell_symbol = self.__grid.get_cell(i, j)
-                    if cell_symbol != CellSymbol.Empty:
-                        player = self.__get_player_by_cell_symbol(cell_symbol)
-                        if player == Turn.PlayerOne:
-                            consecutive_p1_cells += 1
-                        elif player == Turn.PlayerTwo:
-                            consecutive_p2_cells += 1
-                if (consecutive_p1_cells == grid_size) or (
-                    consecutive_p2_cells == grid_size
-                ):
+                    update_player_cell_count(i, j)
+                if is_there_a_winner():
                     has_ended = True
 
         if not has_ended:
@@ -95,27 +92,13 @@ class TicTacToe:
                 consecutive_p1_cells = 0
                 consecutive_p2_cells = 0
                 for i in range(grid_size):
-                    cell_symbol = self.__grid.get_cell(i, j)
-                    if cell_symbol != CellSymbol.Empty:
-                        player = self.__get_player_by_cell_symbol(cell_symbol)
-                        if player == Turn.PlayerOne:
-                            consecutive_p1_cells += 1
-                        elif player == Turn.PlayerTwo:
-                            consecutive_p2_cells += 1
-                if (consecutive_p1_cells == grid_size) or (
-                    consecutive_p2_cells == grid_size
-                ):
+                    update_player_cell_count(i, j)
+                if is_there_a_winner():
                     has_ended = True
 
-        if not has_ended:
-            # check if it's a draw
-            its_a_draw = True
-            for i in range(grid_size):
-                for j in range(grid_size):
-                    cell_symbol = self.__grid.get_cell(i, j)
-                    if cell_symbol == CellSymbol.Empty:
-                        its_a_draw = False
-            has_ended = its_a_draw
+        if self.__is_a_draw():
+            has_ended = True
+
         return has_ended
 
     def __get_move(self) -> Move:
@@ -149,3 +132,13 @@ class TicTacToe:
             return Turn.PlayerTwo
         else:
             raise NoSuchPlayerAssociatedToSymbol()
+
+    def __is_a_draw(self) -> bool:
+        grid_size = self.__grid.get_size()
+        is_a_draw = True
+        for i in range(grid_size):
+            for j in range(grid_size):
+                cell_symbol = self.__grid.get_cell(i, j)
+                if cell_symbol == CellSymbol.Empty:
+                    is_a_draw = False
+        return is_a_draw
