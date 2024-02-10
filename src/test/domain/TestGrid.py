@@ -30,7 +30,7 @@ class TestGrid(TestCase):
             (GRID_SIZE, 0, -1),
         ]
     )
-    def test_should_fail_if_cell_is_invalid(
+    def test_set_cell_should_fail_if_cell_is_invalid(
         self, grid_size: int, row: int, column: int
     ):
         grid = Grid(size=grid_size)

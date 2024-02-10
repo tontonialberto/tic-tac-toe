@@ -29,8 +29,8 @@ def main():
         status_presenter=status_presenter,
         initial_turn=initial_turn,
     )
-    tic_tac_toe.iterate()
-    tic_tac_toe.iterate()
+    while not tic_tac_toe.has_ended():
+        tic_tac_toe.iterate()
 
 
 if __name__ == "__main__":

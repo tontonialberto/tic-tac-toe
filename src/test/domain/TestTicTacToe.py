@@ -1,3 +1,5 @@
+from typing import Dict
+from tictactoe.constants import GRID_SIZE
 from tictactoe.domain.MovePrompt import MovePrompt
 from tictactoe.domain.TicTacToe import TicTacToe
 from tictactoe.domain.Grid import CellSymbol, Grid
@@ -14,9 +16,9 @@ class TicTacToeTest(TestCase):
     def test_should_prompt_for_move_and_update_grid_and_display_status_when_iterating(
         self,
     ):
+        grid = Mock(spec=Grid)
         move_prompt = Mock(spec=MovePrompt)
         move_prompt.prompt.return_value = (0, 0)
-        grid = Mock(spec=Grid)
         presenter = Mock(spec=GameStatusPresenter)
 
         game = TicTacToe(
@@ -32,9 +34,9 @@ class TicTacToeTest(TestCase):
         presenter.show.assert_called_once()
 
     def test_should_ask_again_for_move_if_invalid_input(self):
+        grid = Mock(spec=Grid)
         move_prompt = Mock(spec=MovePrompt)
         move_prompt.prompt.side_effect = [InvalidMove(), InvalidMove(), (0, 0)]
-        grid = Mock(spec=Grid)
         presenter = Mock(spec=GameStatusPresenter)
 
         game = TicTacToe(
@@ -94,3 +96,159 @@ class TicTacToeTest(TestCase):
         game.iterate()
 
         grid.set_cell.assert_called_once_with(ANY, ANY, expected_cell_symbol)
+
+    # fmt: off
+    @parameterized.expand([ # type: ignore
+        (
+            GRID_SIZE,
+            False,
+            {
+                "0:0": CellSymbol.Empty, "0:1": CellSymbol.Empty, "0:2": CellSymbol.Empty,
+                "1:0": CellSymbol.Empty, "1:1": CellSymbol.Empty, "1:2": CellSymbol.Empty,
+                "2:0": CellSymbol.Empty, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Empty,
+            },
+        ),
+        (
+            GRID_SIZE,
+            False,
+            {
+                "0:0": CellSymbol.Circle, "0:1": CellSymbol.Empty, "0:2": CellSymbol.Empty,
+                "1:0": CellSymbol.Empty, "1:1": CellSymbol.Cross, "1:2": CellSymbol.Empty,
+                "2:0": CellSymbol.Empty, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Circle,
+            },
+        ),
+        (
+            GRID_SIZE,
+            False,
+            {
+                "0:0": CellSymbol.Circle, "0:1": CellSymbol.Cross, "0:2": CellSymbol.Cross,
+                "1:0": CellSymbol.Cross, "1:1": CellSymbol.Circle, "1:2": CellSymbol.Circle,
+                "2:0": CellSymbol.Circle, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Empty,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Circle, "0:1": CellSymbol.Empty, "0:2": CellSymbol.Empty,
+                "1:0": CellSymbol.Empty, "1:1": CellSymbol.Circle, "1:2": CellSymbol.Empty,
+                "2:0": CellSymbol.Empty, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Circle,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Cross, "0:1": CellSymbol.Empty, "0:2": CellSymbol.Empty,
+                "1:0": CellSymbol.Empty, "1:1": CellSymbol.Cross, "1:2": CellSymbol.Empty,
+                "2:0": CellSymbol.Empty, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Cross,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Empty, "0:1": CellSymbol.Empty, "0:2": CellSymbol.Circle,
+                "1:0": CellSymbol.Empty, "1:1": CellSymbol.Circle, "1:2": CellSymbol.Empty,
+                "2:0": CellSymbol.Circle, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Empty,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Empty, "0:1": CellSymbol.Empty, "0:2": CellSymbol.Cross,
+                "1:0": CellSymbol.Empty, "1:1": CellSymbol.Cross, "1:2": CellSymbol.Empty,
+                "2:0": CellSymbol.Cross, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Empty,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Circle, "0:1": CellSymbol.Circle, "0:2": CellSymbol.Circle,
+                "1:0": CellSymbol.Empty, "1:1": CellSymbol.Empty, "1:2": CellSymbol.Empty,
+                "2:0": CellSymbol.Empty, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Empty,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Empty, "0:1": CellSymbol.Empty, "0:2": CellSymbol.Empty,
+                "1:0": CellSymbol.Empty, "1:1": CellSymbol.Empty, "1:2": CellSymbol.Empty,
+                "2:0": CellSymbol.Cross, "2:1": CellSymbol.Cross, "2:2": CellSymbol.Cross,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Empty, "0:1": CellSymbol.Empty, "0:2": CellSymbol.Empty,
+                "1:0": CellSymbol.Cross, "1:1": CellSymbol.Cross, "1:2": CellSymbol.Cross,
+                "2:0": CellSymbol.Empty, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Empty,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Circle, "0:1": CellSymbol.Empty, "0:2": CellSymbol.Empty,
+                "1:0": CellSymbol.Circle, "1:1": CellSymbol.Empty, "1:2": CellSymbol.Empty,
+                "2:0": CellSymbol.Circle, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Empty,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Empty, "0:1": CellSymbol.Empty, "0:2": CellSymbol.Cross,
+                "1:0": CellSymbol.Empty, "1:1": CellSymbol.Empty, "1:2": CellSymbol.Cross,
+                "2:0": CellSymbol.Empty, "2:1": CellSymbol.Empty, "2:2": CellSymbol.Cross,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Empty, "0:1": CellSymbol.Cross, "0:2": CellSymbol.Empty,
+                "1:0": CellSymbol.Empty, "1:1": CellSymbol.Cross, "1:2": CellSymbol.Empty,
+                "2:0": CellSymbol.Empty, "2:1": CellSymbol.Cross, "2:2": CellSymbol.Empty,
+            },
+        ),
+        (
+            GRID_SIZE,
+            True,
+            {
+                "0:0": CellSymbol.Cross, "0:1": CellSymbol.Circle, "0:2": CellSymbol.Cross,
+                "1:0": CellSymbol.Cross, "1:1": CellSymbol.Circle, "1:2": CellSymbol.Circle,
+                "2:0": CellSymbol.Circle, "2:1": CellSymbol.Cross, "2:2": CellSymbol.Circle,
+            },
+        ),
+    ])
+    # fmt: on
+    def test_has_ended(
+        self,
+        grid_size: int,
+        expected_has_ended: bool,
+        grid_configuration: Dict[str, CellSymbol],
+    ):
+        grid = Mock(spec=Grid)
+
+        def fn_grid_configuration(row: int, column: int) -> CellSymbol:
+            return grid_configuration[f"{row}:{column}"]
+
+        grid_size = GRID_SIZE
+        grid.get_size.return_value = grid_size
+        grid.get_cell.side_effect = fn_grid_configuration
+        move_prompt = Mock(spec=MovePrompt)
+        status_presenter = Mock(spec=GameStatusPresenter)
+
+        game = TicTacToe(
+            grid=grid,
+            move_prompt=move_prompt,
+            status_presenter=status_presenter,
+            initial_turn=ANY,
+        )
+
+        self.assertEqual(expected_has_ended, game.has_ended())

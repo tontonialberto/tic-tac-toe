@@ -8,3 +8,7 @@ class InvalidMove(GameException):
 
 class InvalidCellPosition(GameException):
     pass
+
+
+class NoSuchPlayerAssociatedToSymbol(GameException):
+    pass
