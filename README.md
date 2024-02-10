@@ -34,3 +34,7 @@ To run static type checking against the code, run the script `typecheck.sh`
 ## Code Autoformatting
 
 To run autoformatter, run the script `format.sh`
+
+## Linting
+
+To run linter checks, run the script `lint.sh`
