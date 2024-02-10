@@ -30,6 +30,6 @@ jobs:
       - name: Create Coverage Badges
         uses: jaywcjlove/coverage-badges-cli@main
         with:
-          source: coverage/coverage.json
+          source: coverage.json
           output: coverage/badges.svg
           jsonPath: totals.percent_covered
