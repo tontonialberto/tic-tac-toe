@@ -27,3 +27,9 @@ jobs:
         with:
           name: test-coverage-report
           path: coverage
+      - name: Create Coverage Badges
+        uses: jaywcjlove/coverage-badges-cli@main
+        with:
+          source: coverage/coverage-summary.json
+          output: coverage/badges.svg
+          jsonPath: totals.percent_covered

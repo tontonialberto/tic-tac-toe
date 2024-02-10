@@ -1,3 +1,5 @@
+![Build Status](https://github.com/tontonialberto/tic-tac-toe/actions/workflows/build.yml/badge.svg)
+
 # T(DD)ic Tac Toe
 
 CLI version of the Tic Tac Toe game. Made with the sole purpose of practicing Test-Driven Development
