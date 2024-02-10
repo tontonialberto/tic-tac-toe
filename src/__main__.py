@@ -15,8 +15,9 @@ from tictactoe.move_prompt.ConsoleMovePrompt import (
 def main():
     grid = Grid(size=GRID_SIZE)
     prompt_options = ConsoleMovePromptOptions(max_value=GRID_SIZE - 1)
+    prompt_output_stream = partial(print, end="")
     move_prompt = ConsoleMovePrompt(
-        input_stream=input, output_stream=print, options=prompt_options
+        input_stream=input, output_stream=prompt_output_stream, options=prompt_options
     )
     presenter_output_stream = partial(print, end="")
     status_presenter = ConsoleGameStatusPresenter(

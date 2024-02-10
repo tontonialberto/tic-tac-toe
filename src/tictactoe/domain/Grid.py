@@ -1,13 +1,6 @@
-from enum import Enum
 from typing import List
-
+from tictactoe.domain.CellSymbol import CellSymbol
 from tictactoe.domain.exceptions import InvalidCellPosition
-
-
-class CellSymbol(Enum):
-    Empty = "EMPTY"
-    Cross = "CROSS"
-    Circle = "CIRCLE"
 
 
 class Grid:

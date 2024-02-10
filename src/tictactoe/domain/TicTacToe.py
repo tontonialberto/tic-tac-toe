@@ -106,7 +106,7 @@ class TicTacToe:
         row, column = (0, 0)  # dummy workaround to avoid type checker complaints
         while not is_valid_move:
             try:
-                row, column = self.__move_prompt.prompt()
+                row, column = self.__move_prompt.prompt(self.__player_turn)
                 is_valid_move = True
                 return row, column
             except InvalidMove:

@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import Mock, call
 from parameterized import parameterized  # type: ignore
 from tictactoe.constants import GRID_SIZE
+from tictactoe.domain.Turn import Turn
 from tictactoe.domain.exceptions import InvalidMove
 
 from tictactoe.move_prompt.ConsoleMovePrompt import (
@@ -24,10 +25,14 @@ class TestConsoleMovePrompt(TestCase):
             options=self.PROMPT_OPTIONS,
         )
 
-        prompt.prompt()
+        prompt.prompt(Turn.PlayerOne)
 
         output_stream.assert_has_calls(
-            [call(MSG_MOVE_PROMPT_ROW), call(MSG_MOVE_PROMPT_COLUMN)], any_order=False
+            [
+                call(f"({Turn.PlayerOne.value}) {MSG_MOVE_PROMPT_ROW}"),
+                call(f"({Turn.PlayerOne.value}) {MSG_MOVE_PROMPT_COLUMN}"),
+            ],
+            any_order=False,
         )
 
     def test_prompt_should_read_move_from_input_stream(self):
@@ -40,7 +45,7 @@ class TestConsoleMovePrompt(TestCase):
             options=self.PROMPT_OPTIONS,
         )
 
-        move = prompt.prompt()
+        move = prompt.prompt(Turn.PlayerOne)
 
         self.assertEqual(move[0], 1)
         self.assertEqual(move[1], 2)
@@ -68,6 +73,6 @@ class TestConsoleMovePrompt(TestCase):
         )
 
         def raised():
-            prompt.prompt()
+            prompt.prompt(Turn.PlayerOne)
 
         self.assertRaises(InvalidMove, raised)

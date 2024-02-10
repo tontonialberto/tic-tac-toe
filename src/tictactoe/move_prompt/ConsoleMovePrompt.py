@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Callable
 from tictactoe.domain.MovePrompt import MovePrompt, Move
+from tictactoe.domain.Turn import Turn
 from tictactoe.domain.exceptions import InvalidMove
 from tictactoe.move_prompt.constants import MSG_MOVE_PROMPT_COLUMN, MSG_MOVE_PROMPT_ROW
 
@@ -21,11 +22,11 @@ class ConsoleMovePrompt(MovePrompt):
         self.__write = output_stream
         self.__max_value = options.max_value
 
-    def prompt(self) -> Move:
-        self.__write(MSG_MOVE_PROMPT_ROW)
+    def prompt(self, player_turn: Turn) -> Move:
+        self.__write(f"({player_turn.value}) {MSG_MOVE_PROMPT_ROW}")
         row_str = self.__read()
 
-        self.__write(MSG_MOVE_PROMPT_COLUMN)
+        self.__write(f"({player_turn.value}) {MSG_MOVE_PROMPT_COLUMN}")
         column_str = self.__read()
 
         try:
