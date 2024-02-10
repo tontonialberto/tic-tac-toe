@@ -30,3 +30,7 @@ To run tests, run the script `run-tests.sh`
 ## Static Type Checking
 
 To run static type checking against the code, run the script `typecheck.sh`
+
+## Code Autoformatting
+
+To run autoformatter, run the script `format.sh`
