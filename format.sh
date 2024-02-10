@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python -m black src
+python -m black src e2e
