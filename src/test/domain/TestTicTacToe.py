@@ -50,14 +50,18 @@ class TicTacToeTest(TestCase):
         game.iterate()
 
         self.assertEqual(3, move_prompt.prompt.call_count)
-        
+
     def test_should_prompt_again_for_move_if_cell_already_taken(self):
         grid = Mock(spec=Grid)
-        grid.get_cell.side_effect = [CellSymbol.Circle, CellSymbol.Cross, CellSymbol.Empty]
+        grid.get_cell.side_effect = [
+            CellSymbol.Circle,
+            CellSymbol.Cross,
+            CellSymbol.Empty,
+        ]
         move_prompt = Mock(spec=MovePrompt)
         move_prompt.prompt.side_effect = [(ANY, ANY), (ANY, ANY), (ANY, ANY)]
         presenter = Mock(spec=GameStatusPresenter)
-        
+
         game = TicTacToe(
             grid=grid,
             move_prompt=move_prompt,
@@ -65,7 +69,7 @@ class TicTacToeTest(TestCase):
             initial_turn=ANY,
         )
         game.iterate()
-        
+
         self.assertEqual(3, move_prompt.prompt.call_count)
 
     @parameterized.expand(  # type: ignore
