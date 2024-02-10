@@ -33,10 +33,10 @@ jobs:
         uses: jaywcjlove/coverage-badges-cli@main
         with:
           source: coverage.json
-          output: coverage/badges.svg
+          output: coverage-badges/badges.svg
           jsonPath: totals.percent_covered
       - name: Deploy Coverage Badge to GH Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./coverage/badges.svg
+          publish_dir: ./coverage-badges
