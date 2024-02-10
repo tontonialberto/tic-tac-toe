@@ -1,5 +1,4 @@
 ![Build Status](https://github.com/tontonialberto/tic-tac-toe/actions/workflows/build.yml/badge.svg)
-
 ![Test Coverage](https://raw.githubusercontent.com/tontonialberto/tic-tac-toe/gh-pages/badges.svg)
 
 # T(DD)ic Tac Toe
