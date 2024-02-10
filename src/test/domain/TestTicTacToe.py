@@ -17,6 +17,7 @@ class TicTacToeTest(TestCase):
         self,
     ):
         grid = Mock(spec=Grid)
+        grid.get_cell.return_value = CellSymbol.Empty
         move_prompt = Mock(spec=MovePrompt)
         move_prompt.prompt.return_value = (0, 0)
         presenter = Mock(spec=GameStatusPresenter)
@@ -33,8 +34,9 @@ class TicTacToeTest(TestCase):
         grid.set_cell.assert_called_once_with(0, 0, ANY)
         presenter.show.assert_called_once()
 
-    def test_should_ask_again_for_move_if_invalid_input(self):
+    def test_should_prompt_again_for_move_if_invalid_input(self):
         grid = Mock(spec=Grid)
+        grid.get_cell.return_value = CellSymbol.Empty
         move_prompt = Mock(spec=MovePrompt)
         move_prompt.prompt.side_effect = [InvalidMove(), InvalidMove(), (0, 0)]
         presenter = Mock(spec=GameStatusPresenter)
@@ -48,6 +50,23 @@ class TicTacToeTest(TestCase):
         game.iterate()
 
         self.assertEqual(3, move_prompt.prompt.call_count)
+        
+    def test_should_prompt_again_for_move_if_cell_already_taken(self):
+        grid = Mock(spec=Grid)
+        grid.get_cell.side_effect = [CellSymbol.Circle, CellSymbol.Cross, CellSymbol.Empty]
+        move_prompt = Mock(spec=MovePrompt)
+        move_prompt.prompt.side_effect = [(ANY, ANY), (ANY, ANY), (ANY, ANY)]
+        presenter = Mock(spec=GameStatusPresenter)
+        
+        game = TicTacToe(
+            grid=grid,
+            move_prompt=move_prompt,
+            status_presenter=presenter,
+            initial_turn=ANY,
+        )
+        game.iterate()
+        
+        self.assertEqual(3, move_prompt.prompt.call_count)
 
     @parameterized.expand(  # type: ignore
         [
@@ -59,6 +78,7 @@ class TicTacToeTest(TestCase):
         self, current_turn: Turn, expected_next_turn: Turn
     ):
         grid = Mock(spec=Grid)
+        grid.get_cell.return_value = CellSymbol.Empty
         move_prompt = Mock(spec=MovePrompt)
         move_prompt.prompt.return_value = (ANY, ANY)
         status_presenter = Mock(spec=GameStatusPresenter)
@@ -83,6 +103,7 @@ class TicTacToeTest(TestCase):
         self, current_turn: Turn, expected_cell_symbol: CellSymbol
     ):
         grid = Mock(spec=Grid)
+        grid.get_cell.return_value = CellSymbol.Empty
         move_prompt = Mock(spec=MovePrompt)
         move_prompt.prompt.return_value = (ANY, ANY)
         status_presenter = Mock(spec=GameStatusPresenter)

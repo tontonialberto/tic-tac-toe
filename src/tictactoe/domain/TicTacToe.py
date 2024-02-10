@@ -107,8 +107,10 @@ class TicTacToe:
         while not is_valid_move:
             try:
                 row, column = self.__move_prompt.prompt(self.__player_turn)
-                is_valid_move = True
-                return row, column
+                is_cell_free = (CellSymbol.Empty == self.__grid.get_cell(row, column))
+                if is_cell_free:
+                    is_valid_move = True
+                    return row, column
             except InvalidMove:
                 pass
         return row, column
