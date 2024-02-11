@@ -9,10 +9,9 @@ echo "Checking global Python version..."
 
 echo $(python --version)
 
-python --version | grep "3.11"
-
 if [ ! "$(python --version | grep '3.10')" ]; then
     echo "ERROR: Python 3.10 is required!"
+    exit 1
 fi
 
 echo "Creating virtual environment..."
